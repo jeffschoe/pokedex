@@ -1,4 +1,5 @@
 import { createInterface } from 'node:readline';
+import { getCommands } from './commands.js';
 
 export function startREPL(): void {
 
@@ -20,7 +21,21 @@ export function startREPL(): void {
         }
 
         const commandName = words[0];
-        console.log(`Your command was: ${commandName}`); 
+
+        const commands = getCommands();
+        const cmd = commands[commandName];
+        if (cmd) {
+            try {
+                cmd.callback(commands);
+            } catch (err) {
+                console.error(err);
+            }
+        } else { 
+            console.log(
+                `Unknown command: "${commandName}". Type "help" for a list of commands.`
+            );
+        }
+
         rl.prompt();
     });
 }
