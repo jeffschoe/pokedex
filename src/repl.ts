@@ -10,19 +10,18 @@ export function startREPL(state: State): void {
     //});
 
     // display prompt and wait for user to type something
-    state.rl.prompt();
+    state.readline.prompt();
 
-    state.rl.on("line", async (input) => { //async for future use when we start awaiting commands
+    state.readline.on("line", async (input) => { //async for future use when we start awaiting commands
         const words = cleanInput(input);
         if (words.length === 0) {
-            state.rl.prompt();
+            state.readline.prompt();
             return;
         }
 
         const commandName = words[0];
 
-        const commands = state.commands;
-        const cmd = commands[commandName];
+        const cmd = state.commands[commandName];
         if (cmd) {
             try {
                 cmd.callback(state);
@@ -35,7 +34,7 @@ export function startREPL(state: State): void {
             );
         }
 
-        state.rl.prompt();
+        state.readline.prompt();
     });
 }
 

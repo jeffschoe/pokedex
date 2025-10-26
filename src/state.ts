@@ -8,11 +8,9 @@ export type CLICommand = {
 };
 
 export type State = {
-    rl: Interface;
+    readline: Interface;
     commands: Record<string, CLICommand>;
-}
-
-
+};
 
 export function initState(): State {
     const rl = createInterface({
@@ -20,7 +18,9 @@ export function initState(): State {
         output: process.stdout,
         prompt: "Pokedex > ",
     });
-    const commands = getCommands();
 
-    return {rl, commands}
+    return {
+        readline: rl, 
+        commands: getCommands(),
+    }
 }
