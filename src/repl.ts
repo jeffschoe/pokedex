@@ -1,32 +1,31 @@
-import { createInterface } from 'node:readline';
-import { getCommands } from './commands.js';
+import { State } from './state.js';
 
-export function startREPL(): void {
+export function startREPL(state: State): void {
 
     // Node's standard input and output streams for reading from and writing to the terminal.
-    const rl = createInterface({
-        input: process.stdin,
-        output: process.stdout,
-        prompt: "Pokedex > ",
-    });
+    //const rl = createInterface({
+    //    input: process.stdin,
+    //    output: process.stdout,
+    //    prompt: "Pokedex > ",
+    //});
 
     // display prompt and wait for user to type something
-    rl.prompt();
+    state.rl.prompt();
 
-    rl.on("line", async (input) => { //async for future use when we start awaiting commands
+    state.rl.on("line", async (input) => { //async for future use when we start awaiting commands
         const words = cleanInput(input);
         if (words.length === 0) {
-            rl.prompt();
+            state.rl.prompt();
             return;
         }
 
         const commandName = words[0];
 
-        const commands = getCommands();
+        const commands = state.commands;
         const cmd = commands[commandName];
         if (cmd) {
             try {
-                cmd.callback(commands);
+                cmd.callback(state);
             } catch (err) {
                 console.error(err);
             }
@@ -36,7 +35,7 @@ export function startREPL(): void {
             );
         }
 
-        rl.prompt();
+        state.rl.prompt();
     });
 }
 
