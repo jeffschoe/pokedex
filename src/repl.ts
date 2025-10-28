@@ -1,13 +1,6 @@
 import { State } from './state.js';
 
-export function startREPL(state: State): void {
-
-    // Node's standard input and output streams for reading from and writing to the terminal.
-    //const rl = createInterface({
-    //    input: process.stdin,
-    //    output: process.stdout,
-    //    prompt: "Pokedex > ",
-    //});
+export async function startREPL(state: State): Promise<void> {
 
     // display prompt and wait for user to type something
     state.readline.prompt();
@@ -24,7 +17,7 @@ export function startREPL(state: State): void {
         const cmd = state.commands[commandName];
         if (cmd) {
             try {
-                cmd.callback(state);
+                await cmd.callback(state);
             } catch (err) {
                 console.error(err);
             }
