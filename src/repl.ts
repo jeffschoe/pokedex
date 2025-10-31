@@ -17,7 +17,7 @@ export async function startREPL(state: State): Promise<void> {
         const cmd = state.commands[commandName];
         if (cmd) {
             try {
-                await cmd.callback(state);
+                await cmd.callback(state, ...words.slice(1));
             } catch (err) {
                 console.error(err);
             }
