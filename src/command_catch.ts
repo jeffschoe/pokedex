@@ -15,8 +15,9 @@ export async function commandCatch(state: State, ...args: string[]): Promise<voi
         //const minBaseExperience = 39; //Caterpie (value not use right now)
         const catchThreshold = 0.8 * pokemon.base_experience / maxBaseExperience;
         if (Math.random() > catchThreshold) {
-            state.pokedex[pokemon.name] = pokemon;
+            state.caughtPokemon[pokemon.name] = pokemon;
             console.log(`${pokemon.name} was caught!`);
+            console.log("You may now inspect it with the inspect command.");
         } else {
             console.log(`${pokemon.name} escaped!`);
         }
