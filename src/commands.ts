@@ -4,6 +4,7 @@ import { commandMapForward, commandMapBack } from "./command_map.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
 import { commandInspect } from "./command_inspect.js";
+import { commandPokedex } from "./command_pokedex.js";
 
 import type { CLICommand } from "./state.js";
 
@@ -32,18 +33,23 @@ export function getCommands(): Record<string, CLICommand> {
         },
         explore: {
             name: "explore",
-            description: "Lists pokemon found in an area. Usage Example > explore pastoria-city-area",
+            description: "Lists Pokemon found in an area. Usage Example > explore pastoria-city-area",
             callback: commandExplore,
         },
         catch: {
             name: "catch",
-            description: "Attempt to catch a pokemon. Usage Example > catch pikachu",
+            description: "Attempt to catch a Pokemon. Usage Example > catch pikachu",
             callback: commandCatch,
         },
         inspect: {
             name: "inspect",
-            description: "Inspect a pokemon you have caught. Usage Example > inspect pikachu",
+            description: "Inspect a Pokemon you have caught. Usage Example > inspect pikachu",
             callback: commandInspect,
+        },
+        pokedex: {
+            name: "pokedex",
+            description: "Prints a list of all the Pokemon you have caught.",
+            callback: commandPokedex,
         },
     };
 }
